@@ -1,5 +1,5 @@
-import { EntityApi, type Entity } from '../common/base/entity'
-import { Http } from '../common/utils/http'
+import { EntityApi, type Entity } from '@/common/base/entity'
+import { Http } from '@/common/utils/http'
 
 /**
  * # 用户

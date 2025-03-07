@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import ElementPlus, { ElMessageBox } from 'element-plus'
 import 'element-plus/dist/index.css'
-import App from './App.vue'
-import { UserApi } from './service/user'
-import { EventControl, Events } from './common/utils/event'
+import App from '@/App.vue'
+import { UserApi } from '@/service/user'
+import { EventControl, Events } from '@/common/utils/event'
 import { useRouter } from 'vue-router'
 
 const event = EventControl()
