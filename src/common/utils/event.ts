@@ -48,12 +48,15 @@ export function EventControl() {
       // 如果监听器数组存在
       if (listenerList) {
         // 遍历监听器数组
-        listenerList.forEach((item) => {
-          // 如果监听器相等
-          if (item === listener) {
-            listener()
+        for (let i = 0; i < listenerList.length; i++) {
+          // 如果监听器数组中存在当前监听器
+          if (listenerList[i] === listener) {
+            // 从监听器数组中移除当前监听器
+            listenerList.splice(i, 1)
+            break
           }
-        })
+        }
+        listeners.set(eventName, listenerList)
       }
     }
   }
