@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router'
 
 const event = EventControl()
 event.on(Events.LOGIN, () => {
-  useRouter().replace('/login')
+  useRouter()?.replace('/login')
 })
 event.on(Events.ERROR, (message, title) => {
   ElMessageBox.alert(String(message), String(title || '未知错误'), {

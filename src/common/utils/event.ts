@@ -1,10 +1,10 @@
+// 定义一个Map保存所有监听器
+const listeners = new Map<Events, Function[]>()
+
 /**
  * # 监听器
  */
 export function EventControl() {
-  // 定义一个Map保存所有监听器
-  const listeners = new Map<Events, Function[]>()
-
   return {
     /**
      * # 监听事件
@@ -16,6 +16,7 @@ export function EventControl() {
       const listenerList = listeners.get(eventName) || []
       // 将监听器添加到监听器数组中
       listenerList.push(listener)
+      listeners.set(eventName, listenerList)
     },
 
     /**
@@ -47,9 +48,10 @@ export function EventControl() {
       // 如果监听器数组存在
       if (listenerList) {
         // 遍历监听器数组
-        listenerList.forEach((l) => {
+        listenerList.forEach((item) => {
           // 如果监听器相等
-          if (l === listener) {
+          if (item === listener) {
+            listener()
           }
         })
       }
