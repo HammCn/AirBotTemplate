@@ -1,7 +1,6 @@
-
-import type { PageRequest, Request } from "../model/request"
-import type { PageResponse } from "../model/response"
-import { Http } from "../utils/http"
+import type { PageRequest, Request } from '../model/request'
+import type { PageResponse } from '../model/response'
+import { Http } from '../utils/http'
 
 /**
  * # 实体基础
@@ -60,7 +59,7 @@ export function EntityApi<T extends Entity>(url: string) {
     /**
      * # 分页
      * @param request 请求
-     * @returns 分页 
+     * @returns 分页
      */
     async page(request: Partial<PageRequest<T>> = {}): Promise<PageResponse<T>> {
       return await Http<PageResponse<T>>(entityUrl + 'getPage').post(request)
@@ -98,6 +97,6 @@ export function EntityApi<T extends Entity>(url: string) {
      */
     async enable(id: number): Promise<void> {
       await Http<void>(entityUrl + 'enable').post({ id })
-    },
+    }
   }
 }

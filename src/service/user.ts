@@ -1,5 +1,5 @@
-import { EntityApi, type Entity } from "../common/base/entity";
-import { Http } from "../common/utils/http";
+import { EntityApi, type Entity } from '../common/base/entity'
+import { Http } from '../common/utils/http'
 
 /**
  * # 用户
@@ -39,6 +39,6 @@ export function UserApi() {
      */
     async login(user: Partial<User>): Promise<string> {
       return await Http<string>(url + 'login').post(user)
-    },
+    }
   }
 }

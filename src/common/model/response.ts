@@ -1,4 +1,4 @@
-import type { Page } from "./page"
+import type { Page } from './page'
 
 /**
  * # 响应体
@@ -23,7 +23,7 @@ export interface Response<T extends any = any> {
 /**
  * # 分页响应
  */
-export interface PageResponse<T> extends Page{
+export interface PageResponse<T> extends Page {
   /**
    * # 总数
    */

@@ -17,6 +17,7 @@ export function EventControl() {
       // 将监听器添加到监听器数组中
       listenerList.push(listener)
     },
+
     /**
      * # 触发事件
      * @param eventName 事件名
@@ -34,6 +35,7 @@ export function EventControl() {
         })
       }
     },
+
     /**
      * # 移除事件
      * @param eventName 事件名
@@ -47,7 +49,8 @@ export function EventControl() {
         // 遍历监听器数组
         listenerList.forEach((l) => {
           // 如果监听器相等
-          if (l === listener) { }
+          if (l === listener) {
+          }
         })
       }
     }
@@ -66,5 +69,5 @@ export enum Events {
   /**
    * # 错误事件
    */
-  ERROR = "ERROR",
+  ERROR = 'ERROR'
 }

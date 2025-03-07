@@ -1,12 +1,16 @@
-import axios, { type AxiosRequestConfig, type AxiosResponse, type RawAxiosRequestHeaders } from "axios"
-import type { Response } from "../model/response"
-import { EventControl, Events } from "./event"
+import axios, {
+  type AxiosRequestConfig,
+  type AxiosResponse,
+  type RawAxiosRequestHeaders
+} from 'axios'
+import type { Response } from '../model/response'
+import { EventControl, Events } from './event'
 
 /**
  * # 网络请求状态码
  */
 export enum HttpStatus {
-  SUCCESS = 200,
+  SUCCESS = 200
 }
 
 /**
@@ -14,7 +18,7 @@ export enum HttpStatus {
  */
 export enum ServiceCode {
   SUCCESS = 200,
-  UNAUTHORIZED = 401,
+  UNAUTHORIZED = 401
 }
 
 /**
@@ -24,11 +28,15 @@ export enum ServiceCode {
  * @param hooks [可选]请求过程中的钩子函数
  * @returns 请求返回的数据
  */
-export function Http<T = unknown>(url: string, header: RawAxiosRequestHeaders = {}, hooks: {
-  redirectToLogin?: () => void
-  errorHandler?: (response: AxiosResponse) => void,
-  beforeRequest?: (config: AxiosRequestConfig) => AxiosRequestConfig
-} = {}) {
+export function Http<T = unknown>(
+  url: string,
+  header: RawAxiosRequestHeaders = {},
+  hooks: {
+    redirectToLogin?: () => void
+    errorHandler?: (response: AxiosResponse) => void
+    beforeRequest?: (config: AxiosRequestConfig) => AxiosRequestConfig
+  } = {}
+) {
   let config: AxiosRequestConfig = {}
   config.headers = header
   config.baseURL = import.meta.env.API_URL || '/api/'
@@ -43,9 +51,7 @@ export function Http<T = unknown>(url: string, header: RawAxiosRequestHeaders = 
     config = beforeRequest(config)
   }
 
-  let response: Promise<AxiosResponse<Response<T>>>;
-
-
+  let response: Promise<AxiosResponse<Response<T>>>
 
   /**
    * # 处理返回结果
@@ -73,7 +79,7 @@ export function Http<T = unknown>(url: string, header: RawAxiosRequestHeaders = 
           // 路由直接处理掉
           EventControl().emit(Events.LOGIN)
         }
-        reject("登录信息已过期，请重新登录")
+        reject('登录信息已过期，请重新登录')
         return
       }
       if (res.data.code !== ServiceCode.SUCCESS) {
@@ -109,6 +115,7 @@ export function Http<T = unknown>(url: string, header: RawAxiosRequestHeaders = 
   }
 
   return {
-    post, get
+    post,
+    get
   }
 }

@@ -1,6 +1,6 @@
-import type { Entity } from "../base/entity";
-import type { Page } from "./page";
-import type { Sort } from "./sort";
+import type { Entity } from '../base/entity'
+import type { Page } from './page'
+import type { Sort } from './sort'
 
 /**
  * # 请求参数
@@ -25,9 +25,3 @@ export interface PageRequest<T extends Entity> extends Request<T> {
    */
   page: Page
 }
-
-
-
-
-
-
