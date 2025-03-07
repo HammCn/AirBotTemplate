@@ -26,6 +26,11 @@ export interface Entity {
    */
   updateTime: number
 }
+
+/**
+ * # 实体基础 API
+ * @param url 接口地址
+ */
 export function EntityApi<T extends Entity>(url: string) {
   const entityUrl = `${url}/`
 
