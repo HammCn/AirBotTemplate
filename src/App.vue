@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { AButton } from '@/components';
 </script>
 
 <template>
-  <div>
-    <AButton type="danger">
-    </AButton>
-  </div>
+  <router-view />
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>
