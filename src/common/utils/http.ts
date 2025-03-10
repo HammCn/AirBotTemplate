@@ -1,4 +1,5 @@
 import axios, {
+  AxiosError,
   type AxiosRequestConfig,
   type AxiosResponse,
   type RawAxiosRequestHeaders
@@ -32,8 +33,25 @@ export function Http<T = unknown>(
   url: string,
   header: RawAxiosRequestHeaders = {},
   hooks: {
+    /**
+     * ### 重定向登录处理
+     */
     redirectToLogin?: () => void
-    errorHandler?: (response: AxiosResponse) => void
+    /**
+     * ### 业务异常处理
+     * @param response Axios响应
+     */
+    error?: (response: AxiosResponse) => void
+    /**
+     * ### 网络异常处理
+     * @param error 网络异常
+     */
+    networkError?: (error: unknown) => void
+    /**
+     * ### 请求前置拦截器
+     * @param config Axios配置
+     * @returns Axios配置
+     */
     beforeRequest?: (config: AxiosRequestConfig) => AxiosRequestConfig
   } = {}
 ) {
@@ -41,7 +59,7 @@ export function Http<T = unknown>(
   config.headers = header
   config.baseURL = import.meta.env.API_URL || '/api/'
 
-  const { redirectToLogin, errorHandler, beforeRequest } = hooks
+  const { redirectToLogin, networkError: exceptionHandle, error: errorHandler, beforeRequest } = hooks
 
   // 自动给Header塞入身份令牌
   config.headers.Authorization = localStorage.getItem('token') || ''
@@ -59,18 +77,8 @@ export function Http<T = unknown>(
    * @returns 返回结果
    */
   async function handleResponse(response: Promise<AxiosResponse<Response<T>>>) {
-    return new Promise<T>(async (resolve, reject) => {
+    try {
       const res = await response
-
-      if (res.status !== HttpStatus.SUCCESS) {
-        if (errorHandler) {
-          errorHandler(res)
-        } else {
-          EventControl().emit(Events.ERROR, '请求出现异常，请稍后再试', '请求异常')
-        }
-        reject(res)
-        return
-      }
       if (res.data.code === ServiceCode.UNAUTHORIZED) {
         if (redirectToLogin) {
           // 如果有传入自定义登录钩子
@@ -79,20 +87,29 @@ export function Http<T = unknown>(
           // 路由直接处理掉
           EventControl().emit(Events.LOGIN)
         }
-        reject('登录信息已过期，请重新登录')
-        return
+        return undefined as T
       }
       if (res.data.code !== ServiceCode.SUCCESS) {
         if (errorHandler) {
           errorHandler(res)
         } else {
-          EventControl().emit(Events.ERROR, res.data.message, '发生错误')
+          EventControl().emit(Events.ERROR, res.data.message + "(" + res.data.code + ")", '请求失败')
         }
-        reject(res.data)
-        return
+        return undefined as T
       }
-      resolve(res.data.data)
-    })
+      return res.data.data
+    } catch (error) {
+      if (exceptionHandle) {
+        exceptionHandle(error)
+        return undefined as T
+      }
+      if (error instanceof AxiosError) {
+        EventControl().emit(Events.ERROR, error.message, error.code || error.status || "网络错误")
+      } else {
+        EventControl().emit(Events.ERROR, (error as Record<string, unknown>).message, '发生错误')
+      }
+      return undefined as T
+    }
   }
 
   /**
