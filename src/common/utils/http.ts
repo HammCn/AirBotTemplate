@@ -11,14 +11,24 @@ import { EventControl, Events } from './event'
  * # 网络请求状态码
  */
 export enum HttpStatus {
-  SUCCESS = 200
+  /**
+   * ### HTTP OK
+   */
+  OK = 200
 }
 
 /**
  * # 服务端返回的状态码
  */
 export enum ServiceCode {
+  /**
+   * ### 成功
+   */
   SUCCESS = 200,
+
+  /**
+   * ### 未登录
+   */
   UNAUTHORIZED = 401
 }
 
