@@ -69,7 +69,7 @@ export function Http<T = unknown>(
   config.headers = header
   config.baseURL = import.meta.env.VITE_API_URL || '/api/'
 
-  const { redirectToLogin, networkError: exceptionHandle, error: errorHandler, beforeRequest } = hooks
+  const { redirectToLogin, networkError, error, beforeRequest } = hooks
 
   // 自动给Header塞入身份令牌
   config.headers.Authorization = localStorage.getItem('token') || ''
@@ -100,23 +100,24 @@ export function Http<T = unknown>(
         return undefined as T
       }
       if (res.data.code !== ServiceCode.SUCCESS) {
-        if (errorHandler) {
-          errorHandler(res)
+        if (error) {
+          error(res)
         } else {
           EventControl().emit(Events.ERROR, res.data.message + "(" + res.data.code + ")", '请求失败')
         }
         return undefined as T
       }
       return res.data.data
-    } catch (error) {
-      if (exceptionHandle) {
-        exceptionHandle(error)
+    } catch (e) {
+      if (networkError) {
+        // 如果有异常钩子传入
+        networkError(e)
         return undefined as T
       }
-      if (error instanceof AxiosError) {
-        EventControl().emit(Events.ERROR, error.message, error.code || error.status || "网络错误")
+      if (e instanceof AxiosError) {
+        EventControl().emit(Events.ERROR, e.message, e.code || e.status || "网络错误")
       } else {
-        EventControl().emit(Events.ERROR, (error as Record<string, unknown>).message, '发生错误')
+        EventControl().emit(Events.ERROR, (e as Record<string, unknown>).message, '发生错误')
       }
       return undefined as T
     }
