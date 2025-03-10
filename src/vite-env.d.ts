@@ -10,5 +10,5 @@ interface ImportMetaEnv extends Readonly<Record<string, string | boolean>> {
   /**
    * ### API地址
    */
-  API_URL: string
+  VITE_API_URL: string
 }

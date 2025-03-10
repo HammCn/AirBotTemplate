@@ -67,7 +67,7 @@ export function Http<T = unknown>(
 ) {
   let config: AxiosRequestConfig = {}
   config.headers = header
-  config.baseURL = import.meta.env.API_URL || '/api/'
+  config.baseURL = import.meta.env.VITE_API_URL || '/api/'
 
   const { redirectToLogin, networkError: exceptionHandle, error: errorHandler, beforeRequest } = hooks
 
