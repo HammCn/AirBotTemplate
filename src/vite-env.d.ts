@@ -8,7 +8,7 @@ declare module '*.vue' {
 
 interface ImportMetaEnv extends Readonly<Record<string, string | boolean>> {
   /**
-   * ### API地址
+   * # API地址
    */
   VITE_API_URL: string
 }

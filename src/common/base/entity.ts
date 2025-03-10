@@ -1,28 +1,28 @@
-import type { PageRequest, Request } from '../model/request'
-import type { PageResponse } from '../model/response'
+import type { PageRequest, Request } from '../types/request'
+import type { PageResponse } from '../types/response'
 import { Http } from '../utils/http'
 
 /**
  * # 实体基础
  */
-export interface Entity {
+export type Entity = {
   /**
-   * ### ID
+   * # ID
    */
   id: number
 
   /**
-   * ### 是否禁用
+   * # 是否禁用
    */
   isDisabled: boolean
 
   /**
-   * ### 创建时间
+   * # 创建时间
    */
   createTime: number
 
   /**
-   * ### 更新时间
+   * # 更新时间
    */
   updateTime: number
 }
@@ -36,7 +36,7 @@ export function EntityApi<T extends Entity>(url: string) {
 
   return {
     /**
-     * ### 获取详情
+     * # 获取详情
      * @param id ID
      * @returns 详情
      */
@@ -45,7 +45,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 删除
+     * # 删除
      * @param id ID
      */
     async del(id: number): Promise<void> {
@@ -53,7 +53,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 列表
+     * # 列表
      * @param request 请求
      * @returns 列表
      */
@@ -62,7 +62,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 分页
+     * # 分页
      * @param request 请求
      * @returns 分页
      */
@@ -71,7 +71,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 添加
+     * # 添加
      * @param item 实体
      * @returns ID
      */
@@ -81,7 +81,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 修改
+     * # 修改
      * @param item 实体
      */
     async update(item: T): Promise<void> {
@@ -89,7 +89,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 禁用
+     * # 禁用
      * @param id ID
      */
     async disable(id: number): Promise<void> {
@@ -97,7 +97,7 @@ export function EntityApi<T extends Entity>(url: string) {
     },
 
     /**
-     * ### 启用
+     * # 启用
      * @param id ID
      */
     async enable(id: number): Promise<void> {

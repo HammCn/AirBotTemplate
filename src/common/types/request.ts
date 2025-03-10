@@ -5,7 +5,7 @@ import type { Sort } from './sort'
 /**
  * # 请求参数
  */
-export interface Request<T extends Entity> {
+export type Request<T extends Entity> = {
   /**
    * # 过滤条件
    */
@@ -19,7 +19,7 @@ export interface Request<T extends Entity> {
 /**
  * # 分页请求
  */
-export interface PageRequest<T extends Entity> extends Request<T> {
+export type PageRequest<T extends Entity> = Request<T> & {
   /**
    * # 分页信息
    */

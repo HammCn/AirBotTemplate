@@ -4,7 +4,7 @@ import axios, {
   type AxiosResponse,
   type RawAxiosRequestHeaders
 } from 'axios'
-import type { Response } from '../model/response'
+import type { Response } from '../types/response'
 import { EventControl, Events } from './event'
 
 /**
@@ -12,7 +12,7 @@ import { EventControl, Events } from './event'
  */
 export enum HttpStatus {
   /**
-   * ### HTTP OK
+   * # HTTP OK
    */
   OK = 200
 }
@@ -22,12 +22,12 @@ export enum HttpStatus {
  */
 export enum ServiceCode {
   /**
-   * ### 成功
+   * # 成功
    */
   SUCCESS = 200,
 
   /**
-   * ### 未登录
+   * # 未登录
    */
   UNAUTHORIZED = 401
 }
@@ -44,21 +44,21 @@ export function Http<T = unknown>(
   header: RawAxiosRequestHeaders = {},
   hooks: {
     /**
-     * ### 重定向登录处理
+     * # 重定向登录处理
      */
     redirectToLogin?: () => void
     /**
-     * ### 业务异常处理
+     * # 业务异常处理
      * @param response Axios响应
      */
     error?: (response: AxiosResponse) => void
     /**
-     * ### 网络异常处理
+     * # 网络异常处理
      * @param error 网络异常
      */
     networkError?: (error: unknown) => void
     /**
-     * ### 请求前置拦截器
+     * # 请求前置拦截器
      * @param config Axios配置
      * @returns Axios配置
      */

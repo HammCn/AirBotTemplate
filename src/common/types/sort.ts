@@ -1,7 +1,7 @@
 /**
  * # 排序
  */
-export interface Sort {
+export type Sort = {
   /**
    * # 排序字段
    */

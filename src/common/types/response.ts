@@ -3,7 +3,7 @@ import type { Page } from './page'
 /**
  * # 响应体
  */
-export interface Response<T extends any = any> {
+export type Response<T extends any = any> = {
   /**
    * # 状态码
    */
@@ -23,7 +23,7 @@ export interface Response<T extends any = any> {
 /**
  * # 分页响应
  */
-export interface PageResponse<T> extends Page {
+export type PageResponse<T> = Page & {
   /**
    * # 总数
    */

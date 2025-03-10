@@ -1,7 +1,7 @@
 /**
  * # 分页
  */
-export interface Page {
+export type Page = {
   /**
    * # 当前页码
    */

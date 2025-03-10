@@ -18,6 +18,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/view/admin/index.vue')
       },
       {
+        path: 'list',
+        component: () => import('@/view/admin/list.vue')
+      },
+      {
         path: ':catchAll(.*)',
         component: () => import('@/view/admin/error.vue')
       }

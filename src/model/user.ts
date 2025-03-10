@@ -1,23 +1,13 @@
 import { EntityApi, type Entity } from '@/common/base/entity'
+import { tableColumn } from '@/common/types/table'
 import { Http } from '@/common/utils/http'
 
 /**
  * # 用户
  */
-export interface User extends Entity {
-  /**
-   * # 邮箱
-   */
+export type User = Entity & {
   email: string
-
-  /**
-   * # 昵称
-   */
   nickname: string
-
-  /**
-   * # 密码
-   */
   password: string
 }
 
@@ -31,14 +21,21 @@ export function UserApi() {
 
   return {
     ...entityApi,
-
-    /**
-     * # 登录
-     * @param user 用户
-     * @returns AccessToken
-     */
     async login(user: Partial<User>): Promise<string> {
       return await Http<string>(url + 'login').post(user)
     }
   }
 }
+
+/**
+ * # 用户表格列
+ */
+export const userTableColumn = tableColumn<User>({
+  nickname: {
+    label: '昵称'
+  },
+  email: {
+    label: '邮箱',
+    width: 100
+  }
+})
