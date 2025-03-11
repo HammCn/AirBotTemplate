@@ -6,13 +6,39 @@ import { Http } from '@/common/utils/http'
  * # 用户
  */
 export type User = Entity & {
+  /**
+   * # 邮箱
+   */
   email: string
+  /**
+   * # 昵称
+   */
   nickname: string
-  password: string
+  /**
+   * # 手机号
+   */
+  phone: string
 }
 
 /**
- * # 用户API
+ * # 用户列
+ */
+export const userTableColumn = tableColumn<User>({
+  nickname: {
+    label: '昵称'
+  },
+  email: {
+    label: '邮箱',
+    width: 100
+  },
+  phone: {
+    label: '手机号',
+    align: 'center'
+  }
+})
+
+/**
+ * # 用户 API
  */
 export function UserApi() {
   const url = 'user/'
@@ -26,16 +52,3 @@ export function UserApi() {
     }
   }
 }
-
-/**
- * # 用户表格列
- */
-export const userTableColumn = tableColumn<User>({
-  nickname: {
-    label: '昵称'
-  },
-  email: {
-    label: '邮箱',
-    width: 100
-  }
-})

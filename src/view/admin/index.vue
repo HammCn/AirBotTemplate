@@ -7,7 +7,6 @@
 import { type User, userTableColumn } from '@/model/user';
 import { ElTable, ElTableColumn } from 'element-plus';
 import { ref, type Ref } from 'vue';
-console.log(userTableColumn);
 
 const list: Ref<User[]> = ref([])
 </script>
